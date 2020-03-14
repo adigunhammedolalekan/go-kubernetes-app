@@ -49,6 +49,10 @@ func (handler *Handler) handleGet(ctx *gin.Context) {
 	ctx.JSON(http.StatusOK, &Response{Error: false, Message: "success", Data: value})
 }
 
+func (handler *Handler) handleStatus(ctx *gin.Context) {
+	ctx.JSON(http.StatusOK, &Response{Error: false, Message: "we're okay!"})
+}
+
 func Run() error {
 	redisUri := os.Getenv("REDIS_HOST")
 	redisClient := redis.NewClient(&redis.Options{
@@ -64,6 +68,7 @@ func Run() error {
 	router := gin.Default()
 	router.GET("/set", handler.handleSet)
 	router.GET("/get", handler.handleGet)
+	router.GET("/status", handler.handleStatus)
 
 	addr := os.Getenv("PORT")
 	if addr == "" {
