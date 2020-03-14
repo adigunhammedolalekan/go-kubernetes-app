@@ -20,9 +20,9 @@ spec:
               name: access-port
           env:
             - name: PORT
-              value: 7002
+              value: "7002"
             - name: REDIS_HOST
-              value: redis-service:6379
+              value: "redis-service:6379"
           imagePullPolicy: Always
     metadata:
       labels:

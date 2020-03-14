@@ -1,4 +1,4 @@
-k8s:
+kube:
 	kubectl apply -f k8s/services.yml
 	kubectl apply -f k8s/statefulsets.yml
 	kubectl apply -f k8s/deployments.yml
@@ -9,11 +9,12 @@ deploy:
 	./build.sh
 	k8s
 
-make setup:
+ingress:
 	# install ingress
 	kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/nginx-0.30.0/deploy/static/mandatory.yaml
 	kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/nginx-0.26.1/deploy/static/provider/cloud-generic.yaml
 
+cert-manager:
 	# install cert-manager
 	kubectl create namespace cert-manager
 	kubectl apply --validate=false -f https://github.com/jetstack/cert-manager/releases/download/v0.14.0/cert-manager.yaml

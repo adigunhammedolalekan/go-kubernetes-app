@@ -11,10 +11,9 @@ spec:
     privateKeySecretRef:
       name: certs-key
     solvers:
-      - selector: {}
-          http01:
-            ingress:
-              class: nginx
+    - http01:
+        ingress:
+          class: nginx
 ---
 
 apiVersion: cert-manager.io/v1alpha2
