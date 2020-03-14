@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kv-app
+  labels:
+    web: app-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      web: app-service
+  template:
+    spec:
+      containers:
+        - name: kv-app-container
+          image: dockadigun/kv-app
+          ports:
+            - containerPort: 7002
+              protocol: TCP
+              name: access-port
+          env:
+            - name: PORT
+              value: 7002
+            - name: REDIS_HOST
+              value: redis-service:6379
+          imagePullPolicy: Always
+    metadata:
+      labels:
+        web: app-service

@@ -1,0 +1,22 @@
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: proxy-ingress
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+    cert-manager.io/cluster-issuer: "cluster-issuer"
+spec:
+  tls:
+    - hosts:
+        - "lekan.me"
+      secretName: certs-secret
+  rules:
+    - host: "lekan.me"
+      http:
+        paths:
+          - backend:
+              serviceName: app-service
+              servicePort: 7002
+  backend:
+    serviceName: proxy-service
+    servicePort: 9093

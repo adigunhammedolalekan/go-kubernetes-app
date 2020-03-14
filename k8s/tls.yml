@@ -1,0 +1,32 @@
+apiVersion: cert-manager.io/v1alpha2
+kind: ClusterIssuer
+metadata:
+  name: cluster-issuer
+  namespace: cert-manager
+spec:
+  acme:
+    #server: https://acme-staging-v02.api.letsencrypt.org/directory
+    server: https://acme-v02.api.letsencrypt.org/directory
+    email: l3kanadigun@gmail.com
+    privateKeySecretRef:
+      name: certs-key
+    solvers:
+      - selector: {}
+          http01:
+            ingress:
+              class: nginx
+---
+
+apiVersion: cert-manager.io/v1alpha2
+kind: Certificate
+metadata:
+  name: tls-cert
+  namespace: cert-manager
+spec:
+  secretName: certs-secret
+  issuerRef:
+    name: cluster-issuer
+    kind: ClusterIssuer
+  commonName: lekan.me
+  dnsNames:
+    - lekan.me

@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: redis-store
+spec:
+  serviceName: "redis-service"
+  replicas: 1
+  selector:
+    matchLabels:
+      app: redis-service
+  template:
+    metadata:
+      labels:
+        app: redis-service
+    spec:
+      containers:
+        - name: redis-store
+          image: redis:latest
+          ports:
+            - containerPort: 6379
+              name: tcp-port
+          volumeMounts:
+            - name: redis-volume
+              mountPath: /var/redis/data
+              subPath: redis
+  volumeClaimTemplates:
+    - metadata:
+        name: redis-volume
+      spec:
+        accessModes: [ "ReadWriteOnce" ]
+        storageClassName: do-block-storage
+        resources:
+          requests:
+            storage: 4Gi
