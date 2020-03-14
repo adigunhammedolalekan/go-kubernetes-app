@@ -49,10 +49,6 @@ func (handler *Handler) handleGet(ctx *gin.Context) {
 	ctx.JSON(http.StatusOK, &Response{Error: false, Message: "success", Data: value})
 }
 
-func (handler *Handler) handleHealth(ctx *gin.Context) {
-	ctx.JSON(http.StatusOK, &Response{Error: false, Message: "we are okay!"})
-}
-
 func Run() error {
 	redisUri := os.Getenv("REDIS_HOST")
 	redisClient := redis.NewClient(&redis.Options{
