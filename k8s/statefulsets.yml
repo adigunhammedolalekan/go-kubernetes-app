@@ -3,15 +3,15 @@ kind: StatefulSet
 metadata:
   name: redis-store
 spec:
-  serviceName: "redis-service"
+  serviceName: "kv-redis-service"
   replicas: 1
   selector:
     matchLabels:
-      app: redis-service
+      app: kv-redis-service
   template:
     metadata:
       labels:
-        app: redis-service
+        app: kv-redis-service
     spec:
       containers:
         - name: redis-store
@@ -28,7 +28,6 @@ spec:
         name: redis-volume
       spec:
         accessModes: [ "ReadWriteOnce" ]
-        storageClassName: do-block-storage
         resources:
           requests:
             storage: 4Gi

@@ -13,7 +13,7 @@ spec:
     spec:
       containers:
         - name: kv-app-container
-          image: dockadigun/kv-app
+          image: dockadigun/kv-app:${TAG}
           ports:
             - containerPort: 7002
               protocol: TCP
@@ -22,7 +22,7 @@ spec:
             - name: PORT
               value: "7002"
             - name: REDIS_HOST
-              value: "redis-service:6379"
+              value: "kv-redis-service:6379"
           imagePullPolicy: Always
     metadata:
       labels:

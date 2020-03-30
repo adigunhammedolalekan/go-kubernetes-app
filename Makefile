@@ -7,7 +7,7 @@ kube:
 
 deploy:
 	./build.sh
-	k8s
+	kube
 
 ingress:
 	# install ingress
